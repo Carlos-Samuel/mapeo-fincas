@@ -1,0 +1,49 @@
+# Base de datos para desarrollo local.
+# Lee las variables DB_* del archivo .env de Laravel.
+#
+#   docker compose up -d      -> levanta MySQL y phpMyAdmin
+#   docker compose down       -> los detiene (los datos se conservan)
+#   docker compose down -v    -> los detiene y BORRA los datos
+#
+# phpMyAdmin: http://localhost:8080  (usuario y clave: DB_USERNAME / DB_PASSWORD)
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fincas-mysql
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-fincas}
+      MYSQL_USER: ${DB_USERNAME:-fincas}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
+      TZ: America/Bogota
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${DB_ROOT_PASSWORD:-rootsecret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: fincas-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "${PHPMYADMIN_PORT:-8080}:80"
+
+volumes:
+  mysql_data:

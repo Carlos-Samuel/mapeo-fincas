@@ -1,0 +1,49 @@
+/* Campo MapaGeometria del admin. Estilos propios: no dependen de compilar Tailwind. */
+.mapa-geometria { display: grid; gap: .5rem; }
+
+.mapa-geometria__barra { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+.mapa-geometria__buscar {
+    flex: 1 1 260px;
+    min-width: 0;
+    padding: .5rem .75rem;
+    border: 1px solid rgb(209 213 219);
+    border-radius: .5rem;
+    font-size: .875rem;
+    background: #fff;
+    color: rgb(17 24 39);
+}
+.dark .mapa-geometria__buscar { background: rgb(255 255 255 / .05); border-color: rgb(255 255 255 / .1); color: #fff; }
+
+.mapa-geometria__boton {
+    padding: .5rem .9rem;
+    border-radius: .5rem;
+    font-size: .875rem;
+    font-weight: 600;
+    background: rgb(22 163 74);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+}
+.mapa-geometria__boton:disabled { opacity: .6; cursor: wait; }
+.mapa-geometria__boton--peligro { background: rgb(220 38 38); }
+
+/* isolation: evita que las capas de Leaflet (z-index 400+) tapen menús y modales de Filament */
+.mapa-geometria__mapa {
+    width: 100%;
+    border-radius: .75rem;
+    overflow: hidden;
+    isolation: isolate;
+    background: #d9dccf;
+}
+
+.mapa-geometria__ayuda { font-size: .8rem; color: rgb(107 114 128); margin: 0; }
+.mapa-geometria__info { font-size: .875rem; font-weight: 600; margin: 0; }
+.mapa-geometria__advertencia {
+    margin: 0;
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    font-size: .875rem;
+    background: rgb(254 243 199);
+    color: rgb(146 64 14);
+}

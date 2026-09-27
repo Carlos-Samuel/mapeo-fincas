@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Filament\Resources\Fincas;
+
+use App\Filament\Resources\Fincas\Pages\CreateFinca;
+use App\Filament\Resources\Fincas\Pages\EditFinca;
+use App\Filament\Resources\Fincas\Pages\ListFincas;
+use App\Filament\Resources\Fincas\Schemas\FincaForm;
+use App\Filament\Resources\Fincas\Tables\FincasTable;
+use App\Models\Finca;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+
+class FincaResource extends Resource
+{
+    protected static ?string $model = Finca::class;
+
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedGlobeAmericas;
+
+    protected static ?string $modelLabel = 'finca';
+
+    protected static ?string $pluralModelLabel = 'fincas';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $recordTitleAttribute = 'nombre';
+
+    /**
+     * El modelo usa el slug como clave de ruta (URLs públicas /fincas/{slug}).
+     * En el admin se usa el id para que las URLs no cambien al editar el slug.
+     */
+    protected static ?string $recordRouteKeyName = 'id';
+
+    public static function form(Schema $schema): Schema
+    {
+        return FincaForm::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return FincasTable::configure($table);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListFincas::route('/'),
+            'create' => CreateFinca::route('/create'),
+            'edit' => EditFinca::route('/{record}/edit'),
+        ];
+    }
+}

@@ -1,0 +1,10 @@
+# Trabajo en curso
+
+_Actualizado: 2026-09-27_
+
+- **Rutas y recorridos** implementados en código (migración `2026_09_27_000001`). En el Mac del dueño falta:
+  1. `php artisan migrate`
+  2. `php artisan db:seed --class=DemoRutasSeeder` (opcional, datos demo)
+  3. Probar en el admin: crear ruta (dibujar línea), crear recorrido (paradas).
+- `php artisan test`: 25/26 en la primera corrida; corregido el 404 de `/admin/fincas/{id}/edit`. Falta volver a correrla.
+- Siguiente fase acordada: cargar la **finca real** dibujándola en el admin (antigua "fase 5").
