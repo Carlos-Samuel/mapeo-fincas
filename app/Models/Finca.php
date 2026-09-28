@@ -54,11 +54,6 @@ class Finca extends Model
         return $slug;
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function lotes(): HasMany
     {
         return $this->hasMany(Lote::class);

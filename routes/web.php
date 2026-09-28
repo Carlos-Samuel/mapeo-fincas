@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 // Sitio público
 Route::get('/', [FincaController::class, 'index'])->name('fincas.index');
-Route::get('/fincas/{finca}', [FincaController::class, 'show'])->name('fincas.show');
-Route::get('/fincas/{finca}/mapa.json', [FincaController::class, 'datos'])->name('fincas.datos');
+Route::get('/fincas/{finca:slug}', [FincaController::class, 'show'])->name('fincas.show');
+Route::get('/fincas/{finca:slug}/mapa.json', [FincaController::class, 'datos'])->name('fincas.datos');
 
 // Contenido del panel derecho (HTML listo para insertar)
 Route::get('/panel/lotes/{lote}', [PanelController::class, 'lote'])->name('panel.lote');

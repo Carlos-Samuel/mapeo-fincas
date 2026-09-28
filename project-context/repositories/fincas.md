@@ -45,6 +45,6 @@ php artisan test                              # SQLite en memoria
 
 ## Comportamientos no evidentes
 
-- Las rutas del sitio usan el **slug** de la finca (`getRouteKeyName`), pero `/api/fincas/{finca:id}/geometrias` usa el **id**.
+- La finca usa **id** como clave de ruta (admin, API); solo las rutas públicas piden el **slug** explícito (`{finca:slug}`). Ver `development/gotchas.md`.
 - `composer install` ejecuta `filament:upgrade`, que publica los assets de Filament en `public/js|css|fonts/filament` (necesarios en producción).
 - Ver `development/gotchas.md`.

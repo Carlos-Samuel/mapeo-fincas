@@ -59,6 +59,20 @@ class AdminTest extends TestCase
         }
     }
 
+    public function test_el_enlace_editar_de_una_finca_funciona(): void
+    {
+        // Regresión: el botón «Editar» generaba /admin/fincas/{slug}/edit y el admin buscaba por id → 404.
+        $url = \App\Filament\Resources\Fincas\FincaResource::getUrl('edit', ['record' => $this->finca]);
+
+        $this->assertStringContainsString("/admin/fincas/{$this->finca->id}/edit", $url);
+        $this->get($url)->assertOk();
+    }
+
+    public function test_las_urls_publicas_usan_el_slug(): void
+    {
+        $this->assertStringEndsWith("/fincas/{$this->finca->slug}", route('fincas.show', $this->finca));
+    }
+
     public function test_crea_un_lote_y_calcula_su_area(): void
     {
         Livewire::test(CreateLote::class)

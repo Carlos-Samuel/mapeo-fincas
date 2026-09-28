@@ -56,19 +56,12 @@ Problem: `php artisan db:seed` sobre una base con datos crea otra "Finca El Ejem
 Reason: `DemoSeeder` no es idempotente.
 What to do: Para agregar solo lo nuevo usar `--class=DemoRutasSeeder`; para reiniciar, `migrate:fresh --seed`.
 
-### Slug vs id en rutas
+### Fincas: slug solo en rutas públicas, id en todo lo demás
 Repository: fincas
-Area: rutas web
-Problem: `route('fincas.show', $finca)` genera el slug; el endpoint del admin usa id.
-Reason: `Finca::getRouteKeyName()` = `slug`; `/api/fincas/{finca:id}/geometrias` fuerza id.
-What to do: No cambiar uno sin el otro; el JS del admin arma la URL con el id.
-
-### El admin de fincas daba 404 al editar
-Repository: fincas
-Area: admin, `FincaResource`
-Problem: `/admin/fincas/{id}/edit` respondía 404 (y el botón «Ir a la finca» de lotes/puntos/rutas también).
-Reason: Filament usa `getRouteKeyName()` del modelo para resolver el registro; `Finca` devuelve `slug`, así que buscaba una finca con slug "1".
-What to do: `FincaResource::$recordRouteKeyName = 'id'` (aplicado 2026-09-27). Cualquier recurso nuevo cuyo modelo cambie la clave de ruta necesita lo mismo.
+Area: rutas, admin (`FincaResource`), modelo `Finca`
+Problem: 404 al editar fincas en el admin. Primer intento (2026-09-27): `Finca::getRouteKeyName() = 'slug'` + `FincaResource::$recordRouteKeyName = 'id'` → el admin **resolvía** por id pero **generaba** enlaces con el slug (`/admin/fincas/{slug}/edit`) → 404 en producción (2026-09-28). El test no lo vio porque armaba la URL a mano con el id.
+Reason: `getRouteKeyName()` afecta la generación de URLs en todo Laravel/Filament, no solo la resolución.
+What to do: `Finca` usa la clave por defecto (id). Las rutas públicas declaran el slug explícito: `/fincas/{finca:slug}` y `/fincas/{finca:slug}/mapa.json`; `route('fincas.show', $finca)` genera el slug solo (Laravel respeta el binding field). No volver a poner `getRouteKeyName()` en `Finca`. Test de regresión: `AdminTest::test_el_enlace_editar_de_una_finca_funciona`.
 
 ### `make:filament-user` es interactivo
 Repository: fincas

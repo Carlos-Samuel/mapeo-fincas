@@ -28,12 +28,6 @@ class FincaResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nombre';
 
-    /**
-     * El modelo usa el slug como clave de ruta (URLs públicas /fincas/{slug}).
-     * En el admin se usa el id para que las URLs no cambien al editar el slug.
-     */
-    protected static ?string $recordRouteKeyName = 'id';
-
     public static function form(Schema $schema): Schema
     {
         return FincaForm::configure($schema);
