@@ -1,1 +1,15 @@
 ssh software-cs.com@ssh.us.stackcp.com
+
+
+cp .env.example .env
+sed -i \
+  -e 's/^APP_ENV=.*/APP_ENV=production/' \
+  -e 's/^APP_DEBUG=.*/APP_DEBUG=false/' \
+  -e 's#^APP_URL=.*#APP_URL=https://software-cs.com#' \
+  -e 's/^DB_HOST=.*/DB_HOST=sdb-86.hosting.stackcp.net/' \
+  -e 's/^DB_DATABASE=.*/DB_DATABASE=mapeo-fincas-353130303395/' \
+  -e 's/^DB_USERNAME=.*/DB_USERNAME=mapeo-fincas/' \
+  -e 's/^DB_PASSWORD=.*/DB_PASSWORD=passwordNumeric1/' \
+  -e '/^DB_ROOT_PASSWORD=/d' -e '/^PHPMYADMIN_PORT=/d' \
+  .env
+grep -E "^(APP_ENV|APP_URL|DB_)" .env
