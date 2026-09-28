@@ -1,6 +1,8 @@
 # Trabajo en curso
 
-_Actualizado: 2026-09-27_
+_Actualizado: 2026-09-28_
+
+- **Producción:** publicado en https://software-cs.com (StackCP). Flujo de actualización en `architecture/despliegue-cpanel.md`.
 
 - **Rutas y recorridos** implementados en código (migración `2026_09_27_000001`). En el Mac del dueño falta:
   1. `php artisan migrate`

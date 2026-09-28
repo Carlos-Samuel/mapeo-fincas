@@ -1,6 +1,6 @@
-# Arquitectura: despliegue en cPanel
+# Arquitectura: despliegue (StackCP / Colombia Imagina)
 
-Estado: **Pendiente de verificar** (aún no se ha publicado). Pasos detallados para humanos en `README.md` (raíz) → "Publicar en cPanel".
+Estado: **publicado y funcionando** en https://software-cs.com desde 2026-09-28. Pasos detallados para humanos en `README.md` (raíz) → "Publicar en cPanel".
 
 Puntos críticos para agentes:
 
@@ -18,3 +18,14 @@ Puntos críticos para agentes:
 - Ejecutar `php artisan optimize` y `php artisan filament:optimize`.
 - Permisos de escritura: `storage/`, `bootstrap/cache/`, `public/uploads/`.
 - PHP del hosting: 8.3+ con `intl`, `pdo_mysql`, `fileinfo`, `mbstring` (el dueño confirmó 8.3+; extensiones pendientes de verificar).
+
+## Flujo de actualización (oficial)
+
+1. Local: cambiar código → `php artisan test` → `git add -A && git commit -m "…" && git push`.
+2. Servidor (SSH): `~/deploy.sh` (script en el home del servidor, fuera del repo), que hace:
+   `php artisan down` → `git pull --ff-only` → `composer install --no-dev --optimize-autoloader` → `php artisan migrate --force` → `php artisan optimize` → `php artisan filament:optimize` → `php artisan up`.
+3. Reglas:
+   - **Nunca editar código directamente en el servidor**: rompe `git pull`. Excepción: `.env`.
+   - Tras cambiar `.env` en el servidor: `php artisan optimize` (la config está cacheada; si no, el cambio no se ve).
+   - El contenido (fincas, lotes, fotos en `public/uploads`) vive solo en la base y el disco del servidor: no viaja por Git. Respaldar con export de phpMyAdmin + descarga de `public/uploads`.
+   - Revertir un cambio: `git revert <commit>` en local + push + deploy (no hacer `reset` en el servidor).

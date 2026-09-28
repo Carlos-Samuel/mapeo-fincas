@@ -16,7 +16,7 @@ Busca la fila de tu tarea y lee **solo** esos documentos.
 | Mapa público, `mapa.js`, panel, enlaces `?lote=` | `architecture/mapa-publico.md` |
 | Tablas, migraciones, GeoJSON, MySQL/MariaDB, seeders demo | `architecture/base-de-datos.md` |
 | Docker local, phpMyAdmin | `architecture/base-de-datos.md` + `development/conventions.md` |
-| Publicar en cPanel / producción | `architecture/despliegue-cpanel.md` |
+| Publicar / actualizar producción (StackCP, SSH, git pull, deploy.sh) | `architecture/despliegue-cpanel.md` |
 | Leaflet, Geoman, Esri, OpenStreetMap, Nominatim, CDN | `integrations/mapas-y-cdn.md` |
 | ¿Por qué no hay Node / por qué MySQL / por qué `public/uploads`? | `decisions/` (ADR-001…004) |
 | Estilo de código, idioma, nombres | `development/conventions.md` |
