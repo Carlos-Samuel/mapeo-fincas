@@ -26,5 +26,6 @@
 
 @push('scripts')
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="{{ asset('js/capas-base.js') }}?v={{ @filemtime(public_path('js/capas-base.js')) }}"></script>
     <script src="{{ asset('js/mapa.js') }}?v={{ @filemtime(public_path('js/mapa.js')) }}"></script>
 @endpush

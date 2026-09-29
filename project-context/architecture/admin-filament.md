@@ -5,6 +5,7 @@
 - Recursos (estructura v4: `Resource`, `Pages/`, `Schemas/*Form`, `Tables/*Table`): Fincas (1), Lotes (2), Puntos (3), Rutas (4), Recorridos (5), Tipos (6) — número = orden en el menú.
 - Crear finca redirige a su edición; la edición tiene acciones "Agregar lote/punto/ruta/recorrido" que abren el formulario con `?finca_id=` (el `Select` usa `->default(request()->integer('finca_id'))`).
 - Enlaces "Ver lotes de esta finca" usan el filtro por URL `?filters[finca][value]=ID` (en v4 el parámetro es `filters`).
+- Editar finca → menú ⋯ → «Importar puntos (GPX)» (crea un punto por waypoint).
 - Idioma: `APP_LOCALE=es` (Filament trae su traducción; validaciones en `lang/es/validation.php`).
 
 ## Campo MapaGeometria
@@ -16,7 +17,9 @@
 - Estado: GeoJSON (`Polygon`, `LineString`, `Point`) enlazado con `$wire.$entangle(statePath)`. El id de la finca también se enlaza con `$entangle('data.finca_id')` y un `$watch` recarga las referencias al cambiarla.
 - Referencias: `GET /api/fincas/{id}/geometrias` → contorno (línea blanca discontinua), lotes, rutas y puntos, **no editables** (`pmIgnore: true`) pero **imantables** (`snapIgnore: false`). Excluye el propio registro (`registroId`).
 - Muestra área (ha) o longitud (m/km) y la advertencia "queda por fuera" en vivo.
-- Buscador: Nominatim o coordenadas «lat, lng».
+- Buscador: Nominatim o coordenadas (decimal o GMS; solo mueve el mapa).
+- Modo punto: campo «Coordenadas del punto»; todos los modos: botón «Cargar GPX». Ver `domains/importacion-gpx-y-coordenadas.md`.
+- Capas base desde `public/js/capas-base.js`; cálculos (área, longitud, dentro/fuera, GPX, coordenadas) desde `public/js/geo-herramientas.js` (`window.GeoHerramientas`). Ambos se cargan en `mapa-assets.blade.php` **antes** de `mapa-geometria.js`.
 - Assets (Leaflet, Geoman, JS/CSS del campo) se inyectan en `<head>` con el render hook `PanelsRenderHook::HEAD_END` → `resources/views/filament/mapa-assets.blade.php`. El JS registra `Alpine.data` en `alpine:init`, por eso debe cargar **antes** que Livewire/Alpine (sin `defer`).
 - El contenedor tiene `wire:ignore` (Livewire no debe re-renderizar el mapa) y `isolation: isolate` (para que las capas de Leaflet no tapen menús/modales).
 

@@ -69,3 +69,24 @@ Area: instalación
 Problem: Pide Name, Email y Password (la contraseña no se ve al escribir); si se pegan varios comandos juntos parece que "se colgó".
 Reason: Comando interactivo de Filament.
 What to do: Correr los comandos de instalación uno por uno.
+
+### Coordenadas sin letras: latitud primero
+Repository: fincas
+Area: admin, `GeoHerramientas.leerCoordenadas`
+Problem: «-74.88, 4.15» (longitud primero, sin N/S/E/W) se interpreta como latitud -74.88 → error de rango o punto equivocado.
+Reason: No hay forma segura de adivinar el orden en Colombia (|lng| ≈ 74 < 90).
+What to do: Documentado en el placeholder; el campo muestra el resultado normalizado para que el usuario lo verifique. Con letras N/S/E/W/O el orden es libre.
+
+### Coma decimal vs separador
+Repository: fincas
+Area: `GeoHerramientas.leerCoordenadas`
+Problem: «4,15,-74,88» es ambiguo.
+Reason: La coma sirve de separador y de decimal.
+What to do: La coma decimal solo se acepta en la forma «4,15123 -74,88456» (sin puntos y separada por espacio o `;`). No ampliar la regla sin tests.
+
+### Scripts compartidos del mapa: orden de carga
+Repository: fincas
+Area: vistas `fincas/show.blade.php`, `filament/mapa-assets.blade.php`
+Problem: `CapasBase is not defined` / `GeoHerramientas is not defined`.
+Reason: `mapa.js` y `mapa-geometria.js` usan globales definidos en `capas-base.js` y `geo-herramientas.js`.
+What to do: Cargar Leaflet → `capas-base.js` → (`geo-herramientas.js`) → script del mapa, sin `defer`/`async` mezclados.

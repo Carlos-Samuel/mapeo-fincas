@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="pruebas" xmlns="http://www.topografix.com/GPX/1/1">
+  <wpt lat="4.1525" lon="-74.8835"><name>Pozo 2</name><desc>Nuevo pozo</desc></wpt>
+  <wpt lat="4.1600" lon="-74.8700"><name>Bocatoma</name></wpt>
+  <wpt lat="4.1538" lon="-74.8840"><name>Casa principal</name></wpt>
+  <trk>
+    <name>Borde del lote</name>
+    <trkseg>
+      <trkpt lat="4.1520" lon="-74.8870"/>
+      <trkpt lat="4.1520" lon="-74.8860"/>
+      <trkpt lat="4.1510" lon="-74.8860"/>
+    </trkseg>
+  </trk>
+  <rte><name>Plan</name><rtept lat="4.15" lon="-74.88"/><rtept lat="4.151" lon="-74.881"/></rte>
+</gpx>

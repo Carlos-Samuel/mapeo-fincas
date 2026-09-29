@@ -7,3 +7,5 @@
 - `DemoSeeder` no es idempotente.
 - Sin tests de JS en el repositorio.
 - Dependencia de CDNs públicos (unpkg) en tiempo de ejecución.
+- Lector GPX duplicado en JS (`geo-herramientas.js`) y PHP (`App\Support\Gpx`).
+- La importación masiva de puntos omite por nombre repetido; no detecta duplicados por cercanía.

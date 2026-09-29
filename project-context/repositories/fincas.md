@@ -15,7 +15,9 @@
 | Área | Ruta |
 |---|---|
 | Modelos | `app/Models/` — `Finca`, `Lote`, `Punto`, `Ruta`, `Recorrido`, `RecorridoParada`, `Tipo`, `Imagen`; trait `Concerns/TieneImagenes` |
-| Geo (área, longitud, punto en polígono) | `app/Support/Geo.php` |
+| Geo (área, longitud, punto en polígono) | `app/Support/Geo.php` (PHP) y `public/js/geo-herramientas.js` (JS: además coordenadas y GPX) |
+| GPX en servidor | `app/Support/Gpx.php`, `app/Support/ImportadorPuntosGpx.php` |
+| Capas base del mapa (satélite, satélite nítido, calles) | `public/js/capas-base.js` |
 | Admin: recursos | `app/Filament/Resources/{Fincas,Lotes,Puntos,Rutas,Recorridos,Tipos}/` (Resource, Pages, Schemas, Tables) |
 | Admin: sección común de contenido | `app/Filament/Forms/ContenidoPanel.php` |
 | Admin: campo de mapa | `app/Filament/Forms/Components/MapaGeometria.php` + `resources/views/filament/forms/components/mapa-geometria.blade.php` + `public/js/admin/mapa-geometria.js` + `public/css/admin/mapa-geometria.css` |

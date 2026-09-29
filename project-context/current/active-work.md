@@ -2,6 +2,8 @@
 
 _Actualizado: 2026-09-28_
 
+- **Nuevo (sin desplegar aún):** coordenadas escritas en puntos, GPX en formularios, importación masiva de puntos GPX y capa «Satélite nítido (beta)». Falta: `php artisan test` local, commit/push y `~/deploy.sh`.
+
 - **Producción:** publicado en https://software-cs.com (StackCP). Flujo de actualización en `architecture/despliegue-cpanel.md`.
 
 - **Rutas y recorridos** implementados en código (migración `2026_09_27_000001`). En el Mac del dueño falta:

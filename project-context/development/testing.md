@@ -3,6 +3,7 @@
 - `php artisan test` (PHPUnit). Usa **SQLite en memoria** (`phpunit.xml`), no toca MySQL.
 - `tests/Unit/GeoTest.php` — área, dentro/fuera.
 - `tests/Feature/SitioPublicoTest.php` — portada, página, `mapa.json`, paneles (lote, punto, ruta, recorrido), saneo de HTML, borrado en cascada, idempotencia de `DemoRutasSeeder`.
+- `tests/Unit/GpxTest.php`, `tests/Feature/ImportarPuntosGpxTest.php` — lector GPX, importador y acción del admin (fixture `tests/fixtures/puntos.gpx`; usa `Storage::fake('local')`).
 - `tests/Feature/AdminTest.php` — pantallas del admin, crear lote/punto/ruta/recorrido, advertencias, validaciones.
 - Siempre `Storage::fake('uploads')` (los seeders escriben archivos).
 - Formularios con Repeater: usar `Repeater::fake()` (claves numéricas) — ya está en `AdminTest::setUp`.

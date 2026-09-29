@@ -13,6 +13,8 @@ Busca la fila de tu tarea y lee **solo** esos documentos.
 | Texto enriquecido, galería, panel derecho, imágenes subidas | `domains/contenido-panel.md` |
 | Admin, formularios, recursos de Filament | `architecture/admin-filament.md` |
 | Dibujar en el mapa del admin (campo `MapaGeometria`) | `architecture/admin-filament.md` → sección "Campo MapaGeometria" |
+| Coordenadas escritas a mano, archivos GPX, importar puntos | `domains/importacion-gpx-y-coordenadas.md` |
+| Fuentes de imagen satelital / resolución del mapa | `integrations/mapas-y-cdn.md` |
 | Mapa público, `mapa.js`, panel, enlaces `?lote=` | `architecture/mapa-publico.md` |
 | Tablas, migraciones, GeoJSON, MySQL/MariaDB, seeders demo | `architecture/base-de-datos.md` |
 | Docker local, phpMyAdmin | `architecture/base-de-datos.md` + `development/conventions.md` |

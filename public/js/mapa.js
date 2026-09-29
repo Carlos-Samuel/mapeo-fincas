@@ -29,22 +29,8 @@
     /* ---------------- Mapa base ---------------- */
     const mapa = L.map('mapa', { maxZoom: 21 }).setView([4.6, -74.1], 6);
 
-    const satelite = L.layerGroup([
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 21,
-            maxNativeZoom: 19,
-            attribution: 'Imágenes &copy; Esri, Maxar, Earthstar Geographics',
-        }),
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 21,
-            maxNativeZoom: 19,
-        }),
-    ]).addTo(mapa);
-    const calles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 21,
-        maxNativeZoom: 19,
-        attribution: '&copy; colaboradores de OpenStreetMap',
-    });
+    // Satélite (Esri), satélite nítido (Esri Clarity) y mapa de calles: ver public/js/capas-base.js
+    const { bases } = CapasBase.agregar(mapa, { conControl: false });
     L.control.scale({ imperial: false }).addTo(mapa);
 
     /* ---------------- Estado ---------------- */
@@ -171,7 +157,7 @@
             if (grupos.has(t.id)) overlays[etiquetaCapa(t.nombre, t.icono, t.color)] = grupos.get(t.id);
         });
         if (grupos.has('sin-tipo')) overlays[etiquetaCapa('Sin tipo', null, '#9e9e9e')] = grupos.get('sin-tipo');
-        L.control.layers({ 'Satélite': satelite, 'Mapa': calles }, overlays, { position: 'topright', collapsed: window.innerWidth < 900 || Object.keys(overlays).length > 8 }).addTo(mapa);
+        L.control.layers(bases, overlays, { position: 'topright', collapsed: window.innerWidth < 900 || Object.keys(overlays).length > 8 }).addTo(mapa);
 
         // Encuadre inicial
         const limites = L.latLngBounds([]);

@@ -91,6 +91,21 @@ class MapaGeometria extends Field
             : $campo;
     }
 
+    /**
+     * Ruta de estado del campo hermano "nombre" (si existe), p. ej. "data.nombre".
+     * Se usa para proponer el nombre del waypoint al cargar un GPX en un punto.
+     */
+    public function getCampoNombreStatePath(): ?string
+    {
+        if ($this->getEntidad() !== 'punto') {
+            return null;
+        }
+
+        $statePath = $this->getStatePath();
+
+        return Str::contains($statePath, '.') ? Str::beforeLast($statePath, '.').'.nombre' : 'nombre';
+    }
+
     /** Id del registro que se está editando (para no dibujarlo dos veces como referencia). */
     public function getRegistroId(): ?int
     {
